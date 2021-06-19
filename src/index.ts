@@ -57,9 +57,9 @@ const handleArrayAndObject = (inObj: any): SchemaObject => {
 }
 
 
-export ∑const getSchemaObject = (inObj: any): SchemaObject => {
+export const getSchemaObject = (inObj: any): SchemaObject => {
     switch (typeof inObj) {
-        ```case 'object': return handleArrayAndObject(inObj)
+        case 'object': return handleArrayAndObject(inObj)
         case 'string': {
             //TODO handle formats
             //TODO handle where key is a string {[key: string]: obj}
@@ -78,7 +78,7 @@ export ∑const getSchemaObject = (inObj: any): SchemaObject => {
     }
 }
 
-export const main = (inObj: any) => {
+const main = (inObj: any) => {
     const schemaObject = getSchemaObject(inObj);
     const x = 2;
 }
