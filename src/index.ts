@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { SchemaObject, SchemaObjectType, SchemaOrReferenceObject } from './Types';
 
 const someObject = {
-    "AccountId": "string",
+    "AccountId": ["string"],
     "BackupJobId": "string",
     "BackupOptions": {
         "string": "string"
@@ -13,13 +13,13 @@ const someObject = {
     "BackupVaultName": "string",
     "BytesTransferred": 11,
     "CompletionDate": 22,
-    "CreatedBy": {
+    "CreatedBy": [{
         "BackupPlanArn": "string",
         "BackupPlanId": "string",
         "BackupPlanVersion": "string",
         "BackupRuleId": "string"
-    },
-    "CreationDate": 22,
+    }],
+    "CreationDate": [22],
     "ExpectedCompletionDate": 11,
     "IamRoleArn": "string",
     "PercentDone": "string",
@@ -40,32 +40,38 @@ const getPropertiesFromObj = (
     return properties;
 }
 
+const handleArrayAndObject = (inObj: any): SchemaObject => {
+    if (typeof inObj === 'object' && Array.isArray(inObj)) {
+        if (inObj.length === 0) {
+            throw new Error(`Array has length 0`)
+        }
+        return {
+            type: SchemaObjectType.array,
+            itemType: getSchemaObject(inObj[0])
+        }
+    }
+    return {
+        type: SchemaObjectType.object,
+        properties: { ...getPropertiesFromObj(inObj) }
+    }
+}
+
+
 const getSchemaObject = (inObj: any): SchemaObject => {
     switch (typeof inObj) {
-        case 'object': {
-            if (typeof inObj === 'object' && Array.isArray(inObj)) {
-                throw new Error('not implemented');
-            }
-            return {
-                type: SchemaObjectType.object,
-                properties: { ...getPropertiesFromObj(inObj) }
-            }
-        }
+        case 'object': return handleArrayAndObject(inObj)
         case 'string': {
             //TODO handle formats
+            //TODO handle where key is a string {[key: string]: obj}
             return {
                 type: SchemaObjectType.string,
             }
         }
-        case 'boolean': {
-            return {
-                type: SchemaObjectType.boolean,
-            }
+        case 'boolean': return {
+            type: SchemaObjectType.boolean,
         }
-        case 'number': {
-            return {
-                type: SchemaObjectType.number,
-            }
+        case 'number': return {
+            type: SchemaObjectType.number,
         }
         default:
             throw new Error(`Did not find type for ${inObj}`);

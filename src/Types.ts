@@ -21,6 +21,7 @@ export type ReferenceObject = {
 export type SchemaObject = {
     schemaName?: string
     type?: SchemaObjectType,
+    itemType?: SchemaObject,
     description?: string,
     properties?: Record<string, SchemaObject>
 }
