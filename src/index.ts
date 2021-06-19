@@ -78,7 +78,7 @@ const getSchemaObject = (inObj: any): SchemaObject => {
     }
 }
 
-const main = (inObj: any) => {
+export const main = (inObj: any) => {
     const schemaObject = getSchemaObject(inObj);
     const x = 2;
 }
