@@ -1,0 +1,1 @@
+import { getSchemaObject } from '../src';
