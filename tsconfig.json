@@ -2,7 +2,7 @@
   "exclude": ["node_modules", "dist"],
   "include": [
     "./src",
-    "./test",
+    "src/test",
     "./*",
     "./config" 
   ],
@@ -24,7 +24,7 @@
     // "outFile": "./",                             /* Concatenate and emit output to single file. */
     // "paths": {
     //   "*": [
-    //     "*",
+    //     "*",z
     //     "src/*",
     //     "src/setup/*",
     //     "src/logic/*",
