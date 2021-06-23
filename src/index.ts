@@ -2,7 +2,10 @@
 export * from './utils';
 export * from './Types';
 
-// import { getSchemaObject } from './utils';
-// import { obj } from './test/resources/Object';
-// const xx = getSchemaObject(obj)
-// const p = 2;
+import * as fs from 'fs';
+import { getSchemaObject, schemaObjectToTextString } from './utils';
+import { obj } from './test/resources/Object';
+const schemaObject = getSchemaObject(obj);
+const schemaString = schemaObjectToTextString(schemaObject);
+fs.writeFileSync('test.yml', schemaString);
+const p = 2;

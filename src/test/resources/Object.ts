@@ -1,21 +1,21 @@
 export const obj = {
-    "AccountId": ["string"],
+    // "AccountId": ["string"],
     "BackupJobId": "string",
-    "BackupOptions": {
-        "string": "string"
-    },
+    // "BackupOptions": {
+    //     "string": "string"
+    // },
     "BackupSizeInBytes": 22,
     "BackupType": "string",
     "BackupVaultArn": "string",
     "BackupVaultName": "string",
     "BytesTransferred": 11,
     "CompletionDate": 22,
-    "CreatedBy": [{
+    "CreatedBy": {
         "BackupPlanArn": "string",
         "BackupPlanId": "string",
         "BackupPlanVersion": "string",
         "BackupRuleId": "string"
-    }],
+    },
     "CreationDate": [22],
     "ExpectedCompletionDate": 11,
     "IamRoleArn": "string",
