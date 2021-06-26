@@ -6,10 +6,12 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "start": "ts-node ./src/index",
-        "test": "mocha -r ts-node/register src/test/Test.ts",
-        "clean": "rm -rf dist",
+        "test": "echo mmmmm && echo LLLLLL",
+        "clean": "run-script-os",
+        "clean:win32": "if exist dist rd /s /q dist",
+        "clean:darwin:linux": "rm -rf dist",
         "clean:all": "rm -rf dist",
-        "prepublish": "npm run clean && tsc"
+        "prepublish": "npm run clean && npm i -D typescript && npx tsc"
     },
     "repository": {
         "type": "git",
@@ -21,15 +23,13 @@
         "url": "https://github.com/rayzvan/toOpenApiConverter/issues"
     },
     "homepage": "https://github.com/rayzvan/toOpenApiConverter#readme",
-    "dependencies": {
-        "tsc": "^2.0.3"
-    },
     "devDependencies": {
         "@types/chai": "^4.2.19",
         "@types/expect": "^24.3.0",
         "@types/mocha": "^8.2.2",
         "@types/node": "^15.12.4",
         "mocha": "^9.0.1",
+        "run-script-os": "^1.1.6",
         "ts-mocha": "^8.0.0",
         "ts-node": "^10.0.0",
         "typescript": "^4.3.4"
