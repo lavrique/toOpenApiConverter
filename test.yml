@@ -1,0 +1,56 @@
+schemaObjectName:
+  type: object
+  properties:
+    accountId:
+      type: array
+      items:
+        type: string
+    backupJobId:
+      type: string
+    backupSizeInBytes:
+      type: number
+    backupType:
+      type: string
+    backupVaultArn:
+      type: string
+    backupVaultName:
+      type: string
+    bytesTransferred:
+      type: number
+    completionDate:
+      type: number
+    createdBy:
+      type: array
+      items:
+        type: object
+        properties:
+          backupPlanArn:
+            type: string
+          backupPlanId:
+            type: string
+          backupPlanVersion:
+            type: string
+          backupRuleId:
+            type: string
+    creationDate:
+      type: array
+      items:
+        type: number
+    expectedCompletionDate:
+      type: number
+    iamRoleArn:
+      type: string
+    percentDone:
+      type: string
+    recoveryPointArn:
+      type: string
+    resourceArn:
+      type: string
+    resourceType:
+      type: string
+    startBy:
+      type: number
+    state:
+      type: string
+    statusMessage:
+      type: string

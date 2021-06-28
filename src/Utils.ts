@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { SchemaObject, SchemaObjectType, SchemaOrReferenceObject } from './Types';
+import { Options, SchemaObject, SchemaObjectType, SchemaOrReferenceObject } from './Types';
 
 const getPropertiesFromObj = (
     obj: Record<string, any>): Record<string, SchemaObject> => {
@@ -55,12 +55,20 @@ const tab = (noOfTabs?: number): string => {
     return stringToReturn;
 }
 
-const writeProperties = (properties: Record<string, SchemaObject>, startTab: number = 2): string => {
+const toLowerCamelCase = (str: string): string => {
+    return str.replace(/[-|\.|\/| |_][a-z|A-Z]/g, match => `${match[1]}`.toUpperCase())
+        .replace(/^[A-Z]/, match => `${match}`.toLowerCase())
+}
+
+const writeProperties = (properties: Record<string, SchemaObject>, startTab: number = 2, options: Options): string => {
     console.log(`Properties: ${startTab}`);
     let strToReturn: string = '';
     Object.keys(properties).forEach(key => {
-        strToReturn += `${tab(startTab)}${key}:\n`
-        strToReturn += writeSchemaObject(properties[key], (startTab + 1));
+        const keyName = options.keepOriginal
+            ? key
+            : toLowerCamelCase(key)
+        strToReturn += `${tab(startTab)}${keyName}:\n`
+        strToReturn += writeSchemaObject(properties[key], (startTab + 1), options);
     });
     return strToReturn;
 }
@@ -70,21 +78,25 @@ const writeProperties = (properties: Record<string, SchemaObject>, startTab: num
  * @param schemaObject 
  * @param startTab where the tabbing should start, since it is recursion it will have another tab for each time this function is called
  */
-const writeSchemaObject = (schemaObject: SchemaObject, startTab: number = 1): string => {
+const writeSchemaObject = (schemaObject: SchemaObject, startTab: number = 1, options: Options): string => {
     let strToReturn: string = '';
-    console.log(`SchemaObjet: ${startTab}`);
+    console.log(`schemaObjet: ${startTab}`);
     switch (schemaObject.type) {
-        case SchemaObjectType.array:{
-            return ''
-        }
+        case SchemaObjectType.array: {
+            // debugger
+            strToReturn += `${tab(startTab)}type: array\n`;
+            strToReturn += `${tab(startTab)}items:\n`;
+            strToReturn += writeSchemaObject(schemaObject.itemType!, startTab + 1, options)
+        } break;
         case SchemaObjectType.object: {
             strToReturn += `${tab(startTab)}type: object\n`;
             strToReturn += `${tab(startTab)}properties:\n`;
             strToReturn += writeProperties(
                 <Record<string, SchemaObject>>schemaObject.properties,
-                (startTab + 1)
+                (startTab + 1),
+                options
             );
-        }
+        } break;
         case SchemaObjectType.boolean: {
             strToReturn += `${tab(startTab)}type: boolean\n`
         } break;
@@ -121,9 +133,9 @@ const writeSchemaObject = (schemaObject: SchemaObject, startTab: number = 1): st
     return strToReturn;
 }
 
-export const schemaObjectToTextString = (schemaObject: SchemaObject): string => {
-    let strToReturn = 'SchemaObjectName:\n';
-    return strToReturn += writeSchemaObject(schemaObject);
+export const schemaObjectToTextString = (schemaObject: SchemaObject, options: Options): string => {
+    let strToReturn = 'schemaObjectName:\n';
+    return strToReturn += writeSchemaObject(schemaObject, undefined, options);
 }
 
 const main = (inObj: any) => {

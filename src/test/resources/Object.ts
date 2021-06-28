@@ -1,5 +1,5 @@
 export const obj = {
-    // "AccountId": ["string"],
+    "AccountId": ["string"],
     "BackupJobId": "string",
     // "BackupOptions": {
     //     "string": "string"
@@ -10,12 +10,12 @@ export const obj = {
     "BackupVaultName": "string",
     "BytesTransferred": 11,
     "CompletionDate": 22,
-    "CreatedBy": {
+    "CreatedBy": [{
         "BackupPlanArn": "string",
         "BackupPlanId": "string",
         "BackupPlanVersion": "string",
         "BackupRuleId": "string"
-    },
+    }],
     "CreationDate": [22],
     "ExpectedCompletionDate": 11,
     "IamRoleArn": "string",

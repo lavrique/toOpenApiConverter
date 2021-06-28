@@ -27,3 +27,7 @@ export type SchemaObject = {
 }
 
 export type SchemaOrReferenceObject = SchemaObject | ReferenceObject;
+
+export type Options = {
+    keepOriginal: boolean
+}
